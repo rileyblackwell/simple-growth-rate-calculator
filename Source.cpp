@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+ 
 
 using namespace std;
 
@@ -42,7 +43,8 @@ Company gather_company_info() {
 	return company;
 }
 
-vector <double> calculate_growth_rate(Company company) {
+vector <double> calculate_growth_rate() {
+	Company company = gather_company_info();
 	double currentRevenue = company.get_current_revenue();
 	double growthRate = company.get_growth_rate();
 	double years = company.get_years();
@@ -58,16 +60,30 @@ vector <double> calculate_growth_rate(Company company) {
 	return results;
 }
 
-void print_results(vector<double> results) {
+void print_results() {
+	vector <double> results = calculate_growth_rate();
 	for (double result : results) {
-		cout << result;
+		cout << result << " ";
 	}
+	cout << endl << endl;
 }
 
 int main() {
-	Company company = gather_company_info();
-	vector <double> results = calculate_growth_rate(company);
-	print_results(results);
+	
+	bool viewResults = true;
+	char viewAnother = 'N';
+	
+	while (viewResults) {
+		print_results();
+		
+		cout << "Do you want to view another result? Enter Y or N: ";
+		cin >> viewAnother;
+		viewAnother = tolower(viewAnother);
+		
+		if (viewAnother != 'y') {
+			viewResults = false;
+		}
+	}
 	
 	return 0;
 }
